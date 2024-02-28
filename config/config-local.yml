@@ -1,0 +1,27 @@
+server:
+  Port: :3000
+
+services:
+  Producer:
+    Url: "http://localhost:3030/producer/branches"
+    ContentType: "application/json"
+
+cors:
+  AllowCredentials: true
+  AllowOrigins: "http://localhost:4200"
+  AllowHeaders: "Origin,Content-Type, Accept, Content-Length, Accept-Language, Accept-Encoding, Connection, Access-Control-Allow-Origin"
+
+postgres:
+  Driver: postgres
+  Host: localhost
+  User: root
+  Password: root
+  DBName: restaurant-report
+  Port: 5432
+  SSLMode: disable
+
+mongo:
+  URI: mongodb+srv://%s:%s@mycluster.xklf4cr.mongodb.net/
+  User: pointer
+  Password: pdjdz4DqKrbVtP1B
+  DBName: restaurant-reports
