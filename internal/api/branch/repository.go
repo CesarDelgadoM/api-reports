@@ -119,11 +119,10 @@ func (repo *Repository) FindAll(userId uint, name string) (*[]Branch, error) {
 		return nil, err
 	}
 
+	// Struct for mapping the query result
 	result := struct {
 		Branches []Branch `json:"branches"`
-	}{
-		Branches: []Branch{},
-	}
+	}{}
 
 	if cursor.Next(ctx) {
 		if err := cursor.Decode(&result); err != nil {

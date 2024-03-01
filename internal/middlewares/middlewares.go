@@ -8,6 +8,7 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
+// Validate jwt token of the cookie
 func IsAuthenticated(ctx *fiber.Ctx) error {
 	cookie := ctx.Cookies("jwt")
 
@@ -21,6 +22,7 @@ func IsAuthenticated(ctx *fiber.Ctx) error {
 	return ctx.Next()
 }
 
+// Get userid of the cookie
 func GetUserId(ctx *fiber.Ctx) (uint, error) {
 	cookie := ctx.Cookies("jwt")
 

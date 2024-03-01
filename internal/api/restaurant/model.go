@@ -23,6 +23,7 @@ type Restaurant struct {
 	Branches    []branch.Branch `json:"branches"`
 }
 
+// Mapping to restaurant structure without branches field
 func (rest *Restaurant) MapToRestaurantData() RestaurantData {
 	return RestaurantData{
 		Name:        rest.Name,
@@ -34,6 +35,7 @@ func (rest *Restaurant) MapToRestaurantData() RestaurantData {
 	}
 }
 
+// Struct for post request
 type Request struct {
 	UserId     uint       `json:"userid"`
 	Name       string     `json:"name"`

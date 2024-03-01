@@ -27,6 +27,8 @@ func (h *handler) InitRouters() {
 	api.Use(middlewares.IsAuthenticated).Post("/branches", h.reportBranches)
 }
 
+// Make a post request to producer_report service
+// Start generating a branches report
 func (h *handler) reportBranches(ctx *fiber.Ctx) error {
 	agent := fiber.Post(h.config.Producer.Url)
 	agent.ContentType(h.config.Producer.ContentType)

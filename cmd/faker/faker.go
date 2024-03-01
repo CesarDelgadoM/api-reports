@@ -13,6 +13,7 @@ import (
 	"github.com/go-faker/faker/v4"
 )
 
+// Paramaters to create a restaurant
 const (
 	userid            = 1
 	name              = "LaMargarita"
@@ -26,6 +27,7 @@ const (
 	maxScore          = 5
 )
 
+// Create a restaurant in mongodb with fake data
 func main() {
 	// Config load
 	loadcfg := config.LoadConfig("config-local.yml")
@@ -120,6 +122,7 @@ func main() {
 			}
 		}
 
+		// Branch
 		branch := branch.Branch{
 			Name:      faker.Name(),
 			Manager:   faker.Name(),
