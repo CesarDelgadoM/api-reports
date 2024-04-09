@@ -27,11 +27,11 @@ func (h *handler) InitRouters() {
 	api.Use(middlewares.IsAuthenticated).Post("/branches", h.reportBranches)
 }
 
-// Make a post request to producer_report service
+// Make a post request to extractor_reports service
 // Start generating a branches report
 func (h *handler) reportBranches(ctx *fiber.Ctx) error {
-	agent := fiber.Post(h.config.Producer.Url)
-	agent.ContentType(h.config.Producer.ContentType)
+	agent := fiber.Post(h.config.Extractor.Url)
+	agent.ContentType(h.config.Extractor.ContentType)
 	agent.Body(ctx.Body())
 
 	_, response, errors := agent.Bytes()

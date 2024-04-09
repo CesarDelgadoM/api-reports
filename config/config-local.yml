@@ -2,8 +2,8 @@ server:
   Port: :3000
 
 services:
-  Producer:
-    Url: "http://localhost:3030/producer/branches"
+  Extractor:
+    Url: "http://localhost:3030/extractor/branches"
     ContentType: "application/json"
 
 cors:

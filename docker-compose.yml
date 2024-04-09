@@ -12,6 +12,15 @@ services:
       - POSTGRES_DB=restaurant-report
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  broker-rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: broker-rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+    - rabbitmq-data:/var/lib/rabbitmq
 
 volumes:
   postgres_data:
+  rabbitmq-data:

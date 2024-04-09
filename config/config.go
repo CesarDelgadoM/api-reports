@@ -21,11 +21,11 @@ type ServerConfig struct {
 
 // Services config
 type ServicesConf struct {
-	Producer ProducerServ
+	Extractor ExtractorServ
 }
 
-// Producer service
-type ProducerServ struct {
+// Extractor service
+type ExtractorServ struct {
 	Url         string
 	ContentType string
 }
