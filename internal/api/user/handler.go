@@ -37,13 +37,13 @@ func (handler *handler) InitRouters() {
 }
 
 func (handler *handler) register(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	var register Register
 
 	err := ctx.BodyParser(&register)
 	if err != nil {
-		zap.Logger.Error(httperrors.ErrBodyParser, err)
+		zap.Log.Error(httperrors.ErrBodyParser, err)
 		return httperrors.BadRequest
 	}
 
@@ -56,13 +56,13 @@ func (handler *handler) register(ctx *fiber.Ctx) error {
 }
 
 func (handler *handler) login(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	var credentials Credentials
 
 	err := ctx.BodyParser(&credentials)
 	if err != nil {
-		zap.Logger.Error(httperrors.ErrBodyParser, err)
+		zap.Log.Error(httperrors.ErrBodyParser, err)
 		return httperrors.BadRequest
 	}
 
@@ -75,7 +75,7 @@ func (handler *handler) login(ctx *fiber.Ctx) error {
 }
 
 func (handler *handler) authenticate(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	user, err := handler.service.Authenticate(ctx)
 	if err != nil {
@@ -86,7 +86,7 @@ func (handler *handler) authenticate(ctx *fiber.Ctx) error {
 }
 
 func (handler *handler) logout(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	handler.service.Logout(ctx)
 

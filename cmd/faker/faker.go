@@ -17,14 +17,14 @@ import (
 const (
 	userid            = 1
 	name              = "LaMargarita"
-	numberBranches    = 17
+	numberBranches    = 170
 	numberOptionsMenu = 15
 	numberEmployees   = 10
 	minrange          = 1000000
 	maxrange          = 1000000000
-	maxage            = 60
-	maxSales          = 100
-	maxScore          = 5
+	maxage            = 80
+	maxSales          = 1000
+	maxScore          = 10
 )
 
 // Create a restaurant in mongodb with fake data
@@ -34,7 +34,7 @@ func main() {
 
 	cfg := config.ParseConfig(loadcfg)
 
-	// Logger zap initialization
+	// Log zap initialization
 	zap.InitLogger(cfg)
 
 	// Mongo connection
@@ -61,7 +61,7 @@ func main() {
 		Branches:    []branch.Branch{},
 	}
 
-	zap.Logger.Info("Creating restaurant: ", macdonalds)
+	zap.Log.Info("Creating restaurant: ", macdonalds)
 	restaurantService.CreateRestaurant(&macdonalds)
 
 	// Fake branch creation
@@ -135,9 +135,9 @@ func main() {
 			Menu:      menu,
 		}
 
-		zap.Logger.Info("Creating branch: ", branch)
+		zap.Log.Info("Creating branch: ", branch)
 		if err := branchService.CreateBranch(userid, name, &branch); err != nil {
-			zap.Logger.Fatal("error creating fake data: ", err)
+			zap.Log.Fatal("error creating fake data: ", err)
 		}
 	}
 }

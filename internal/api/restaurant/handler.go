@@ -39,13 +39,13 @@ func (handler *handler) InitRouters() {
 }
 
 func (handler *handler) createRestaurant(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	var request Request
 
 	err := ctx.BodyParser(&request)
 	if err != nil {
-		zap.Logger.Error(httperrors.ErrBodyParser, err)
+		zap.Log.Error(httperrors.ErrBodyParser, err)
 		return httperrors.BadRequest
 	}
 
@@ -64,7 +64,7 @@ func (handler *handler) createRestaurant(ctx *fiber.Ctx) error {
 }
 
 func (handler *handler) getRestaurant(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	name := ctx.Params("name")
 	userId, err := strconv.Atoi(ctx.Params("userid"))
@@ -81,7 +81,7 @@ func (handler *handler) getRestaurant(ctx *fiber.Ctx) error {
 }
 
 func (handler *handler) getRestaurants(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	userId, err := strconv.Atoi(ctx.Params("userid"))
 	if err != nil {
@@ -97,13 +97,13 @@ func (handler *handler) getRestaurants(ctx *fiber.Ctx) error {
 }
 
 func (handler *handler) updateRestaurant(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	var request Request
 
 	err := ctx.BodyParser(&request)
 	if err != nil {
-		zap.Logger.Error(httperrors.ErrBodyParser, err)
+		zap.Log.Error(httperrors.ErrBodyParser, err)
 		return httperrors.BadRequest
 	}
 
@@ -118,7 +118,7 @@ func (handler *handler) updateRestaurant(ctx *fiber.Ctx) error {
 }
 
 func (handler *handler) deleteRestaurant(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	name := ctx.Params("name")
 	userId, err := strconv.Atoi(ctx.Params("userid"))

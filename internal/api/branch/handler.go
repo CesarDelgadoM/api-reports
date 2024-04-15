@@ -33,19 +33,19 @@ func (handler *handler) InitRouters() {
 
 	api.Use(middlewares.IsAuthenticated).Post("/create", handler.createBranch)
 	api.Use(middlewares.IsAuthenticated).Get("/get/userid::userid/name::name/manager::manager", handler.getBranch)
-	api.Use(middlewares.IsAuthenticated).Get("/getall/userid::userid/name::name", handler.getBranchs)
+	api.Use(middlewares.IsAuthenticated).Get("/getall/userid::userid/name::name", handler.getBranches)
 	api.Use(middlewares.IsAuthenticated).Put("/update", handler.updateBranch)
 	api.Use(middlewares.IsAuthenticated).Delete("delete/userid::userid/name::name/manager::manager", handler.deleteBranch)
 }
 
 func (handler *handler) createBranch(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	var request Request
 
 	err := ctx.BodyParser(&request)
 	if err != nil {
-		zap.Logger.Error(httperrors.ErrBodyParser, err)
+		zap.Log.Error(httperrors.ErrBodyParser, err)
 		return httperrors.BadRequest
 	}
 
@@ -58,7 +58,7 @@ func (handler *handler) createBranch(ctx *fiber.Ctx) error {
 }
 
 func (handler *handler) getBranch(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	userId, _ := strconv.Atoi(ctx.Params("userid"))
 	name := ctx.Params("name")
@@ -72,13 +72,13 @@ func (handler *handler) getBranch(ctx *fiber.Ctx) error {
 	return ctx.JSON(branch)
 }
 
-func (handler *handler) getBranchs(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+func (handler *handler) getBranches(ctx *fiber.Ctx) error {
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	userId, _ := strconv.Atoi(ctx.Params("userid"))
 	name := ctx.Params("name")
 
-	branchs, err := handler.service.FindBranchs(uint(userId), name)
+	branchs, err := handler.service.FindBranches(uint(userId), name)
 	if err != nil {
 		return err
 	}
@@ -87,13 +87,13 @@ func (handler *handler) getBranchs(ctx *fiber.Ctx) error {
 }
 
 func (handler *handler) updateBranch(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	var request Request
 
 	err := ctx.BodyParser(&request)
 	if err != nil {
-		zap.Logger.Error(httperrors.ErrBodyParser, err)
+		zap.Log.Error(httperrors.ErrBodyParser, err)
 		return httperrors.BadRequest
 	}
 
@@ -106,7 +106,7 @@ func (handler *handler) updateBranch(ctx *fiber.Ctx) error {
 }
 
 func (handler *handler) deleteBranch(ctx *fiber.Ctx) error {
-	zap.Logger.Info(operationName, utils.GetRequestURI(ctx))
+	zap.Log.Info(operationName, utils.GetRequestURI(ctx))
 
 	userId, _ := strconv.Atoi(ctx.Params("userid"))
 	name := ctx.Params("name")

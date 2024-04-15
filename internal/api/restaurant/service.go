@@ -28,33 +28,33 @@ func NewService(repo IRepository) IService {
 func (service *Service) CreateRestaurant(restaurant *Restaurant) error {
 	err := service.repo.Create(restaurant)
 	if err != nil {
-		zap.Logger.Error(httperrors.ErrRestaurantCreate, err)
+		zap.Log.Error(httperrors.ErrRestaurantCreate, err)
 		return httperrors.RestaurantCreateFailed
 	}
 
-	zap.Logger.Info("Restaurant created: ", restaurant.Name)
+	zap.Log.Info("Restaurant created: ", restaurant.Name)
 	return nil
 }
 
 func (service *Service) FindRestaurant(userId uint, name string) (*RestaurantData, error) {
 	restaurant, err := service.repo.Find(userId, name)
 	if err != nil {
-		zap.Logger.Error(httperrors.ErrRestaurantNotFound, err)
+		zap.Log.Error(httperrors.ErrRestaurantNotFound, err)
 		return nil, httperrors.RestaurantNotFound
 	}
 
-	zap.Logger.Info("Restaurant found: ", restaurant.Name)
+	zap.Log.Info("Restaurant found: ", restaurant.Name)
 	return restaurant, nil
 }
 
 func (service *Service) FindAllRestaurants(userId uint) (*[]RestaurantData, error) {
 	restaurant, err := service.repo.FindAll(userId)
 	if err != nil {
-		zap.Logger.Error(httperrors.ErrRestaurantNotFound, err)
+		zap.Log.Error(httperrors.ErrRestaurantNotFound, err)
 		return nil, httperrors.RestaurantNotFound
 	}
 
-	zap.Logger.Info("Restaurants found: ", len(*restaurant))
+	zap.Log.Info("Restaurants found: ", len(*restaurant))
 	return restaurant, nil
 }
 
@@ -63,16 +63,16 @@ func (service *Service) UpdateRestaurant(userId uint, name string, restaurant *R
 	if err != nil {
 		switch {
 		case errors.Is(err, httperrors.RestaurantNotFound):
-			zap.Logger.Error(httperrors.ErrRestaurantNotFound, err)
+			zap.Log.Error(httperrors.ErrRestaurantNotFound, err)
 			return httperrors.RestaurantNotFound
 
 		default:
-			zap.Logger.Error(httperrors.ErrRestaurantUpdated, err)
+			zap.Log.Error(httperrors.ErrRestaurantUpdated, err)
 			return httperrors.RestaurantUpdateFailed
 		}
 	}
 
-	zap.Logger.Info("Restaurant updated: ", restaurant.Name)
+	zap.Log.Info("Restaurant updated: ", restaurant.Name)
 	return nil
 }
 
@@ -81,15 +81,15 @@ func (service *Service) DeleteRestaurant(userId uint, name string) error {
 	if err != nil {
 		switch {
 		case errors.Is(err, httperrors.RestaurantNotFound):
-			zap.Logger.Error(httperrors.ErrRestaurantNotFound, err)
+			zap.Log.Error(httperrors.ErrRestaurantNotFound, err)
 			return httperrors.RestaurantNotFound
 
 		default:
-			zap.Logger.Error(httperrors.ErrRestaurantDeleted, err)
+			zap.Log.Error(httperrors.ErrRestaurantDeleted, err)
 			return httperrors.RestaurantDeleteFailed
 		}
 	}
 
-	zap.Logger.Info("Restaurant deleted: ", name)
+	zap.Log.Info("Restaurant deleted: ", name)
 	return nil
 }

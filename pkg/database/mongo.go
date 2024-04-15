@@ -20,9 +20,9 @@ func ConnectMongoDB(config config.MongoConfig) *MongoDB {
 
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {
-		zap.Logger.Fatal("Connect to mongo db failed: ", err)
+		zap.Log.Fatal("Connect to mongo db failed: ", err)
 	}
-	zap.Logger.Info("Connect to mongo db success")
+	zap.Log.Info("Connect to mongo db success")
 
 	return &MongoDB{
 		Client: client,

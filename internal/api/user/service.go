@@ -46,11 +46,11 @@ func (service *Service) Register(ctx *fiber.Ctx, register *Register) error {
 
 	err := service.repo.Create(user)
 	if err != nil {
-		zap.Logger.Error(httperrors.ErrUserCreate, err)
+		zap.Log.Error(httperrors.ErrUserCreate, err)
 		return httperrors.UserCreateFailed
 	}
 
-	zap.Logger.Info("User register success: ", user.Email)
+	zap.Log.Info("User register success: ", user.Email)
 	return nil
 }
 
@@ -63,14 +63,14 @@ func (service *Service) Login(ctx *fiber.Ctx, credentials *Credentials) error {
 			return httperrors.EmailNotExists
 
 		default:
-			zap.Logger.Error(httperrors.ErrFindByEmail, err)
+			zap.Log.Error(httperrors.ErrFindByEmail, err)
 			return httperrors.EmailFindFailed
 		}
 	}
 
 	err = user.ComparePassword(credentials.Password)
 	if err != nil {
-		zap.Logger.Error(httperrors.ErrComparePasswrod, err)
+		zap.Log.Error(httperrors.ErrComparePasswrod, err)
 		return httperrors.InvalidCredentials
 	}
 
@@ -93,7 +93,7 @@ func (service *Service) Login(ctx *fiber.Ctx, credentials *Credentials) error {
 
 	ctx.Cookie(&cookie)
 
-	zap.Logger.Info("Login success: ", user.Email)
+	zap.Log.Info("Login success: ", user.Email)
 	return nil
 }
 
@@ -102,11 +102,11 @@ func (service *Service) Authenticate(ctx *fiber.Ctx) (*User, error) {
 
 	user, err := service.repo.FindById(id)
 	if err != nil {
-		zap.Logger.Error(httperrors.UserNotFound, err)
+		zap.Log.Error(httperrors.UserNotFound, err)
 		return nil, httperrors.UserNotFound
 	}
 
-	zap.Logger.Info("Authentication success: ", user.Email)
+	zap.Log.Info("Authentication success: ", user.Email)
 	return user, nil
 }
 
@@ -121,5 +121,5 @@ func (service *Service) Logout(ctx *fiber.Ctx) {
 
 	ctx.Cookie(&cookie)
 
-	zap.Logger.Info("Logout success")
+	zap.Log.Info("Logout success")
 }

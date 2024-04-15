@@ -25,9 +25,9 @@ func ConnectPostgresDB(config config.PostgresConfig) *PostgresDB {
 
 	db, err := gorm.Open(postgres.Open(dns), &gorm.Config{})
 	if err != nil {
-		zap.Logger.Fatal("Connect to postgres db failed: ", err)
+		zap.Log.Fatal("Connect to postgres db failed: ", err)
 	}
-	zap.Logger.Info("Connect to postgres db success")
+	zap.Log.Info("Connect to postgres db success")
 
 	return &PostgresDB{db}
 }
