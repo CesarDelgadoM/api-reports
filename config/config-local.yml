@@ -3,7 +3,7 @@ server:
 
 services:
   Extractor:
-    Url: "http://localhost:3030/extractor/branches"
+    Url: "http://localhost:3030/extract/branches"
     ContentType: "application/json"
 
 cors:
